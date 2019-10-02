@@ -2,6 +2,7 @@ package edu.cecar.Controlador;
 
 import edu.cecar.Modelo.Archivo;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /** Clase: ServidorArchivo
  * 
@@ -23,9 +24,13 @@ public class ServidorArchivo {
 		new GuardarJSON("ArchivosCompartidos/ArchivosJSON.dat");	
 		System.out.println("Servidor de Archivos Montado");
                 
+                
+                
 		ServerSocketObjeto serverSocket = new ServerSocketObjeto(puerto); 
 		boolean sw = true;
-			
+		
+                JOptionPane.showMessageDialog(null," Servidor de Archivos Montado",
+                                              "Servidor",JOptionPane.INFORMATION_MESSAGE);
 		while (sw) {
 			try {
                             
