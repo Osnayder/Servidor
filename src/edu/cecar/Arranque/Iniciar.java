@@ -1,7 +1,6 @@
 package edu.cecar.Arranque;
 
 import edu.cecar.Controlador.ServidorArchivo;
-import javax.swing.JOptionPane;
 
 /** clase: Iniciar
  * 

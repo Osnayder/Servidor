@@ -1,6 +1,7 @@
 package edu.cecar.Controlador;
 
 import edu.cecar.Modelo.Archivo;
+import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -18,19 +19,22 @@ import javax.swing.JOptionPane;
  */
 
 public class ServidorArchivo {
-        private String ruta = "ArchivosCompartidos/";
 	
 	public ServidorArchivo(int puerto) {
-		new GuardarJSON("ArchivosCompartidos/ArchivosJSON.dat");	
+                
+                File directorio=new File("Servidor"); // crea directorio
+                directorio.mkdir();
+                String ruta = directorio.getName();
+		new GuardarJSON(ruta+"//"+"ArchivosJSON.dat");
+                
+                JOptionPane.showMessageDialog(null," Montar Servidor?"
+                                              ,"Servidor",JOptionPane.INFORMATION_MESSAGE);
 		System.out.println("Servidor de Archivos Montado");
-                
-                
                 
 		ServerSocketObjeto serverSocket = new ServerSocketObjeto(puerto); 
 		boolean sw = true;
 		
-                JOptionPane.showMessageDialog(null," Servidor de Archivos Montado",
-                                              "Servidor",JOptionPane.INFORMATION_MESSAGE);
+                
 		while (sw) {
 			try {
                             
@@ -38,9 +42,9 @@ public class ServidorArchivo {
                             Archivo archivo = (Archivo)object;
 					
                             if (archivo.getOperacion().equals("Subida")) { 
-				Utilidades.escribirAchivo(ruta + archivo.getNombre(), archivo.getBytes());		
+				Utilidades.escribirAchivo(ruta+"//" + archivo.getNombre(), archivo.getBytes());		
                             } else {			
-				byte[] bytes = Utilidades.getBytes(ruta + archivo.getNombre());
+				byte[] bytes = Utilidades.getBytes(ruta+"//" + archivo.getNombre());
 				archivo.setBytes(bytes);
 				serverSocket.getSalida().writeObject(archivo);
                             }
